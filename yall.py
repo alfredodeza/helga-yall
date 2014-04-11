@@ -7,7 +7,7 @@ logger = log.getLogger(__name__)
 
 verbose = [
     (
-        '/me is',
+        'is',
     ),
     (
        'overwhelmed', 'overpowered', 'swept over', 'overcomed', 'overtaken',
@@ -74,11 +74,14 @@ def is_getting_thanked(message, botnick=None):
         'fantastic',
         'cool',
         'da bomb',
+        'the bomb',
+        'the best',
         'stupendous',
         'impressive',
+        'rock',
         ]
     )
-    thanks_regex = r'(({botnick}:|{botnick})+\s+(is|you are)+\s+({nice_adjectives})+|(.*)(is|you are)+\s+({nice_adjectives})+\s+({botnick})+|^({nice_adjectives})+\s+({botnick})+)'.format(
+    thanks_regex = r'(({botnick}:|{botnick})+\s+(is|you|you are)+\s+({nice_adjectives})+|(.*)(is|you are)+\s+({nice_adjectives})+\s+({botnick})+|^({nice_adjectives})+\s+({botnick})+)'.format(
             nice_adjectives=nice_adjectives,
             botnick=botnick)
     thanks_compiled = re.compile(thanks_regex)
@@ -99,7 +102,7 @@ def p_random_composer(phrases, nick=''):
     return phrase
 
 
-@match(is_getting_thanked, priority=0)
+@match(is_getting_thanked, priority=50)
 def yall(client, channel, nick, message, matches):
     """
     Match a user saying thanks to the bot, reply accordingly like a tamaulipan
@@ -107,7 +110,8 @@ def yall(client, channel, nick, message, matches):
     """
     use_nick = random.choice([True, False, False, False])
     if use_nick:
-        phrase = p_random_composer(succinct, nick)
+        return p_random_composer(succinct, nick)
     else:
+        # do it like /me
         phrase = p_random_composer(verbose)
-    return phrase
+        return client.me(channel, phrase)
