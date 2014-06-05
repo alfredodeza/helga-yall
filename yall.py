@@ -83,7 +83,7 @@ def is_getting_thanked(message, botnick=None):
         'thank you',
         ]
     )
-    thanks_regex = r'(({botnick}:|{botnick})+\s+(is|you|you are)+\s+({nice_adjectives})+|(.*)(is|you are)+\s+({nice_adjectives})+\s+({botnick})+|^({nice_adjectives})+\s+({botnick})+)'.format(
+    thanks_regex = r'(({botnick}:|{botnick})+\s+(is|you|you are)+\s+({nice_adjectives})+|(.*)(is|you are)+\s+({nice_adjectives})+\s+(({botnick}:|{botnick}))+|^({nice_adjectives})+\s+({botnick})+)'.format(
             nice_adjectives=nice_adjectives,
             botnick=botnick)
     thanks_compiled = re.compile(thanks_regex)
