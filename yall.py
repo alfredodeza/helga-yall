@@ -192,7 +192,7 @@ def p_random_composer(phrases, nick=''):
         phrase = ''
     for item in phrases:
         phrase += random.choice(item) + ' '
-    print phrase
+
     return phrase
 
 
@@ -200,7 +200,7 @@ def is_getting_pinged(message, botnick=None):
     return is_getting_thanked(message, botnick) or is_getting_harassed(message, botnick)
 
 
-@match(is_getting_thanked, priority=50)
+@match(is_getting_pinged, priority=50)
 def yall(client, channel, nick, message, matches):
     """
     Match a user saying thanks to the bot, reply accordingly like a tamaulipan
