@@ -6,7 +6,7 @@ from helga import log, settings
 logger = log.getLogger(__name__)
 
 responses = {
-    'good': {
+    'thanks': {
         'verbose' : [
             (
                 'is',
